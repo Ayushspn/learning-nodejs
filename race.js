@@ -1,5 +1,6 @@
-
-setTimeout(() => {
-console.log('rabbit finishes first');
-}, 1000);
-console.log('tortoise finishes second');
+const http = require('http');
+http.request('http://www.google.com', (res) => {
+    res.on('data', (chunk) => {
+        console.log(`Received chunk: ${chunk}`);
+    });
+})
