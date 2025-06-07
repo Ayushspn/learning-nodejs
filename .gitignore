@@ -1,0 +1,39 @@
+# Node.js dependencies
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
+
+# VS Code settings
+.vscode/
+
+# Optional: Ignore output folders
+dist/
+build/
+
+# Optional: Ignore coverage reports
+coverage/
+
+# Optional: Ignore temp files
+*.tmp
+*.swp
+*.swo
+~$*
+
+# Optional: Ignore OneDrive temp files
+*.tmp.driveupload
+
+*.history
