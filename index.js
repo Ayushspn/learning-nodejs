@@ -1,4 +1,5 @@
-const { parse } = require('csv-parse');
+
+/* const { parse } = require('csv-parse');
 const fs = require('fs');
 
 const results = [];
@@ -22,5 +23,19 @@ fs.createReadStream('kepler_data.csv')
     }
   })
   .on('end', () => {
-    console.log(results.length + ' habitable planets found!');
-  })
+    console.log(results.map((planet) => planet['kepler_name']));
+  }) */
+    
+/** Server Example */
+    const http = require('http');
+    const PORT = process.env.PORT || 3000;
+    const server = http.createServer((req, res) => {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({name: 'Habitable Planets API', version: '1.0.0' }));
+    });
+
+    server.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    })
+
+    
