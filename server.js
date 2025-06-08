@@ -25,69 +25,43 @@ fs.createReadStream('kepler_data.csv')
   .on('end', () => {
     console.log(results.map((planet) => planet['kepler_name']));
   }) */
-    
+
 /** Server Example */
-    /* const http = require('http');
-    const PORT = process.env.PORT || 3000;
-    const server = http.createServer((req, res) => {
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({name: 'Habitable Planets API', version: '1.0.0' }));
-    });
+/* const http = require('http');
+const PORT = process.env.PORT || 3000;
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({name: 'Habitable Planets API', version: '1.0.0' }));
+});
 
-    server.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    }) */
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+}) */
 
 
 
-      /// Express Example 
+/// Express Example 
 
-      const express = require('express');
-      const app = express();
-      const PORT = process.env.PORT || 3000;
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-      const friends = [
-        { name: 'Alice', id: 1 },
-        { name: 'Bob', id: 2 },
-        { name: 'Charlie', id: 3 }
-      ];
+const { friendsRouter } = require('./routes/friends.router.js');
+const { messagesRouter } = require('./routes/messages.router.js');
 
-      app.use((req, res, next) => {
-        const currentTime = new Date().toISOString();
-        console.log(`[${currentTime}] Request received`);
-        console.log(`${req.method} request for '${req.url}'`);
-        next();
-      })
+app.use((req, res, next) => {
+  const currentTime = new Date().toISOString();
+  console.log(`[${currentTime}] Request received`);
+  console.log(`${req.method} request for '${req.url}'`);
+  next();
+})
 
-     app.use(express.json());
+app.use(express.json());
 
-      app.get('/friends', (req, res) => {
-        res.json(friends);
-      })
+app.use('/friends',friendsRouter);
+app.use('/messages',messagesRouter);
 
-      app.post('/friends', (req, res) => {
-        console.log(req.body)
-        const newFriend = { name: req.body.name, id: friends.length + 1 };
-        friends.push(newFriend);
-        res.json(newFriend);
-      })
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+})
 
-      app.get('/friends/:friendId', (req, res) => {
-        const friendId = parseInt(req.params.friendId, 10);
-        const friend = friends.find(f => f.id === friendId);
-        res.json(friend || { error: 'Friend not found' });
-      })
-
-      app.get('/messages', (req, res) => {
-        res.send('<ul><li>Message 1</li><li>Message 2</li></ul>');
-      });
-
-      app.post('/messages', (req, res) => {
-        res.send('Message received');
-      });
-
-      app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-      })
-
-    
