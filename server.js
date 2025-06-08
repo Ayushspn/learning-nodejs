@@ -52,8 +52,24 @@ fs.createReadStream('kepler_data.csv')
         { name: 'Charlie', id: 3 }
       ];
 
+      app.use((req, res, next) => {
+        const currentTime = new Date().toISOString();
+        console.log(`[${currentTime}] Request received`);
+        console.log(`${req.method} request for '${req.url}'`);
+        next();
+      })
+
+     app.use(express.json());
+
       app.get('/friends', (req, res) => {
         res.json(friends);
+      })
+
+      app.post('/friends', (req, res) => {
+        console.log(req.body)
+        const newFriend = { name: req.body.name, id: friends.length + 1 };
+        friends.push(newFriend);
+        res.json(newFriend);
       })
 
       app.get('/friends/:friendId', (req, res) => {
